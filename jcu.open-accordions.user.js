@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name     JCU - Open Accordions
-// @version  1.0
+// @version  1.1
 // @grant    none
 // @match    https://www.jcu.edu.au/*
 // @match    https://secure.jcu.edu.au/*

@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name     JCU - Never Remember IDP Consent
-// @version  1.0
+// @version  1.0.1
 // @grant    none
 // @match    https://idp.jcu.edu.au/*
 // @match    https://idp-test.jcu.edu.au/*

@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name     Steam - Auto-accept agreement
-// @version  1.0
+// @version  1.0.1
 // @grant    none
 // @match    https://store.steampowered.com/account/registerkey
 // ==/UserScript==
 
-document.getElementById('accept_ssa').checked = true
+document.querySelectorAll('#accept_ssa').forEach(e => e.checked = true)

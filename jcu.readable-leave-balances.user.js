@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name     JCU - Readable Leave Balances
-// @version  1.0
+// @version  1.0.0
 // @grant    none
 // @match    https://myhronline.jcu.edu.au/*
 // ==/UserScript==

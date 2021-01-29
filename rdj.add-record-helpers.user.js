@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name     Research Data JCU - Add Helper Buttons
+// @name     Research Data JCU - Add Record Helpers
 // @version  1.0
 // @grant    none
 // @match    https://research.jcu.edu.au/data/*

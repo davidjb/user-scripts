@@ -11,9 +11,8 @@
 
   // www-style
   document.querySelectorAll('.accordion__link').forEach(e => e.click())
-  document.querySelectorAll('.accordion-section .panel').forEach(e => e.className = '')
+  document.querySelectorAll('.accordion-section .panel').forEach(e => { e.className = '' })
 
   // secure, uber-accordion
-  document.querySelectorAll('.accordion__target').forEach(e => e.className = '')
+  document.querySelectorAll('.accordion__target').forEach(e => { e.className = '' })
 })()
-

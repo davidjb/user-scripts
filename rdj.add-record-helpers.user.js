@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name     Research Data JCU - Add Record Helpers
-// @version  1.0
+// @version  1.1
 // @grant    none
 // @match    https://research.jcu.edu.au/data/*
 // ==/UserScript==

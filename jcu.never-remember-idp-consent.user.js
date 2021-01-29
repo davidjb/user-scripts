@@ -8,5 +8,6 @@
 
 (function() {
   'use strict'
-  document.querySelectorAll('#_shib_idp_doNotRememberConsent').forEach(e => e.click())
+
+  document.querySelectorAll('#_shib_idp_doNotRememberConsent').forEach(el => el.click())
 })()

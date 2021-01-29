@@ -9,10 +9,10 @@
 (function() {
   'use strict'
 
-  // www-style
-  document.querySelectorAll('.accordion__link').forEach(e => e.click())
-  document.querySelectorAll('.accordion-section .panel').forEach(e => { e.className = '' })
+  // WWW-style
+  document.querySelectorAll('.accordion__link').forEach(el => el.click())
+  document.querySelectorAll('.accordion-section .panel').forEach(el => { el.className = '' })
 
-  // secure, uber-accordion
-  document.querySelectorAll('.accordion__target').forEach(e => { e.className = '' })
+  // Secure, uber-accordion
+  document.querySelectorAll('.accordion__target').forEach(el => { el.className = '' })
 })()

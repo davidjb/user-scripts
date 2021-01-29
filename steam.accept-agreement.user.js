@@ -8,5 +8,5 @@
 (function() {
   'use strict'
 
-  document.querySelectorAll('#accept_ssa').forEach(e => e.checked = true)
+  document.querySelectorAll('#accept_ssa').forEach(el => { el.checked = true })
 })()

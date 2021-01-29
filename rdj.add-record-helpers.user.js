@@ -59,7 +59,11 @@
           ${(data.type === 'dataPublication' && related_data_record_oid) ?
               `<a class="btn btn-secondary m-r-1"
                 href="https://research.jcu.edu.au/data/default/rdmp/record/view/${related_data_record_oid[1]}/">View Related Data Record</a>` : ''}
-          <strong>Type:</strong> ${type}
+          <ul class="list-inline" style="display: inline-block;">
+            <li class="list-inline-item"><strong>Type:</strong> ${type}</li>
+            <li class="list-inline-item"><strong>Last Modified:</strong> ${data.updatedAt}</li>
+            <li class="list-inline-item"><strong>Created:</strong> ${data.createdAt}</li>
+          </ul>
         `))
         document.querySelector('.maincontent-body').prepend(content)
       })

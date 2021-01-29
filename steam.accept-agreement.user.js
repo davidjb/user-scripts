@@ -5,4 +5,8 @@
 // @match    https://store.steampowered.com/account/registerkey
 // ==/UserScript==
 
-document.querySelectorAll('#accept_ssa').forEach(e => e.checked = true)
+(function() {
+  'use strict'
+
+  document.querySelectorAll('#accept_ssa').forEach(e => e.checked = true)
+})()

@@ -6,9 +6,14 @@
 // @match    https://secure.jcu.edu.au/*
 // ==/UserScript==
 
-// www-style
-document.querySelectorAll('.accordion__link').forEach(e => e.click())
-document.querySelectorAll('.accordion-section .panel').forEach(e => e.className = '')
+(function() {
+  'use strict'
 
-// secure, uber-accordion
-document.querySelectorAll('.accordion__target').forEach(e => e.className = '')
+  // www-style
+  document.querySelectorAll('.accordion__link').forEach(e => e.click())
+  document.querySelectorAll('.accordion-section .panel').forEach(e => e.className = '')
+
+  // secure, uber-accordion
+  document.querySelectorAll('.accordion__target').forEach(e => e.className = '')
+})()
+

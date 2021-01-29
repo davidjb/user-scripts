@@ -6,4 +6,7 @@
 // @match    https://idp-test.jcu.edu.au/*
 // ==/UserScript==
 
-document.querySelectorAll('#_shib_idp_doNotRememberConsent').forEach(e => e.click())
+(function() {
+  'use strict'
+  document.querySelectorAll('#_shib_idp_doNotRememberConsent').forEach(e => e.click())
+})()

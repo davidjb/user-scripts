@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name     Research Data JCU - Add Record Helpers
-// @version  1.2
+// @version  1.2.1
 // @grant    none
 // @match    https://research.jcu.edu.au/data/*
 // ==/UserScript==
@@ -76,7 +76,7 @@
               `<a class="btn btn-primary m-b-1 m-r-1"
                 href="https://research.jcu.edu.au/data/default/rdmp/record/view/${oid}/">◀ Back to View</a>` : ''}
           ${(data.type === 'dataPublication' && is_published) ?
-              `<a class="btn btn-info m-b-1 m-r-1"
+              `<a class="btn btn-success m-b-1 m-r-1"
                 href="https://research.jcu.edu.au/data/published/${oid}/">See Published Page</a>` : ''}
           ${(data.type === 'dataPublication' && related_data_record_oid) ?
               `<a class="btn btn-secondary m-b-1 m-r-1"

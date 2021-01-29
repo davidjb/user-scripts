@@ -5,6 +5,8 @@
 // @match    https://research.jcu.edu.au/data/*
 // ==/UserScript==
 
+// TODO: make page <title> useful
+
 function template(content) {
   return `
     <div class="container m-b-1">

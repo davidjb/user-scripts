@@ -1,9 +1,11 @@
 // ==UserScript==
-// @name     JCU - Open Accordions
-// @version  1.1.0
-// @grant    none
-// @match    https://www.jcu.edu.au/*
-// @match    https://secure.jcu.edu.au/*
+// @name         JCU - Open Accordions
+// @version      1.1.0
+// @description  Open all website accordions automatically so they're readable
+// @author       davidjb
+// @grant        none
+// @match        https://www.jcu.edu.au/*
+// @match        https://secure.jcu.edu.au/*
 // ==/UserScript==
 
 (function() {

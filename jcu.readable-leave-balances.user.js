@@ -1,10 +1,11 @@
 // ==UserScript==
-// @name     JCU - Readable Leave Balances
-// @version  1.0.0
-// @grant    none
-// @match    https://myhronline.jcu.edu.au/*
+// @name         JCU - Readable Leave Balances
+// @version      1.0.0
+// @description  Make HR system leave balances human-readable
+// @author       davidjb
+// @grant        none
+// @match        https://myhronline.jcu.edu.au/*
 // ==/UserScript==
-
 
 (function() {
   'use strict'

@@ -1,8 +1,9 @@
 // ==UserScript==
 // @name     Research Data JCU - Add v2 Record Button
-// @version  1.0
+// @version  1.1
 // @grant    none
 // @match    https://research.jcu.edu.au/researchdata/*
+// @match    https://eresearch.jcu.edu.au/researchdata/*
 // ==/UserScript==
 
 (function() {

@@ -1,9 +1,11 @@
 // ==UserScript==
-// @name     Research Data JCU - Add v2 Record Button
-// @version  1.1
-// @grant    none
-// @match    https://research.jcu.edu.au/researchdata/*
-// @match    https://eresearch.jcu.edu.au/researchdata/*
+// @name         Research Data JCU - Add v2 Record Button
+// @version      1.1
+// @description  Add easily-accessible button to ReDBox v1 to link to v2 records
+// @author       davidjb
+// @grant        none
+// @match        https://research.jcu.edu.au/researchdata/*
+// @match        https://eresearch.jcu.edu.au/researchdata/*
 // ==/UserScript==
 
 (function() {

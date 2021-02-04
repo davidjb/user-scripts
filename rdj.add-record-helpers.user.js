@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Research Data JCU - Add Record Helpers
-// @version      1.2.1
+// @version      1.3.0
 // @description  Add various helpers and information to pages within Research Data JCU
 // @author       davidjb
 // @grant        none
@@ -75,19 +75,17 @@
 
         const content = document.createRange().createContextualFragment(template(`
           ${window.location.pathname.startsWith('/data/default/rdmp/record/edit/') ?
-              `<a class="btn btn-primary m-b-1 m-r-1"
+              `<a class="btn btn-primary m-r-1"
                 href="https://research.jcu.edu.au/data/default/rdmp/record/view/${oid}/">◀ Back to View</a>` : ''}
           ${(data.type === 'dataPublication' && is_published) ?
-              `<a class="btn btn-success m-b-1 m-r-1"
+              `<a class="btn btn-success m-r-1"
                 href="https://research.jcu.edu.au/data/published/${oid}/">See Published Page</a>` : ''}
           ${(data.type === 'dataPublication' && related_data_record_oid) ?
-              `<a class="btn btn-secondary m-b-1 m-r-1"
+              `<a class="btn btn-secondary m-r-1"
                 href="https://research.jcu.edu.au/data/default/rdmp/record/view/${related_data_record_oid[1]}/">View Related Data Record</a>` : ''}
           <ul class="list-inline" style="display: inline-block;">
             <li class="list-inline-item"><strong>Type:</strong> ${type}</li>
             ${data.type === 'dataPublication' ? `<li class="list-inline-item ${status_class}"><strong>Status:</strong> ${status}</li>`: ''}
-            <li class="list-inline-item"><strong>Last Modified:</strong> ${data.updatedAt}</li>
-            <li class="list-inline-item"><strong>Created:</strong> ${data.createdAt}</li>
           </ul>
         `))
         document.querySelector('.maincontent-body').prepend(content)

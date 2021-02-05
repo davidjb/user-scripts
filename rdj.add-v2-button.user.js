@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Research Data JCU - Add v2 Record Button
-// @version      1.1
+// @version      1.2
 // @description  Add easily-accessible button to ReDBox v1 to link to v2 records
 // @author       davidjb
 // @grant        none
@@ -11,7 +11,7 @@
 (function() {
   'use strict'
 
-  if (window.location.pathname.startsWith('/researchdata/published/detail') || window.location.pathname.startsWith('/researchdata/default/detail')) {
+  if (window.location.pathname.match(/\/researchdata\/(default|published|administration)\/detail/)) {
     const oid = window.location.pathname.match(/\/detail\/(.+?)\//)
     const content = document.createRange().createContextualFragment(`
     <a href="https://research.jcu.edu.au/data/default/rdmp/legacy/record/${oid[1]}/"

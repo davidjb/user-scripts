@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Research Data JCU - Add Record Helpers
-// @version      1.5.1
+// @version      1.5.2
 // @description  Add various helpers and information to pages within Research Data JCU
 // @author       davidjb
 // @grant        none
@@ -24,7 +24,7 @@
   }
 
   if (window.location.pathname.startsWith('/data/published')) {
-    const oid = window.location.pathname.match(/\/published\/(.+?)\//)
+    const oid = window.location.pathname.match(/\/published\/([a-z0-9]+)/)
     let section
 
     // Real pages

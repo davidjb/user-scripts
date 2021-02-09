@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Research Data JCU - Add Record Helpers
-// @version      1.3.1
+// @version      1.4.0
 // @description  Add various helpers and information to pages within Research Data JCU
 // @author       davidjb
 // @grant        none
@@ -67,6 +67,9 @@
             break
           case 'Embargoed':
             status_class = 'jcu-bg--orange'
+            break
+          case 'Queued':
+            status_class = 'jcu-bg--gray-light'
             break
           default:
             status_class = ''

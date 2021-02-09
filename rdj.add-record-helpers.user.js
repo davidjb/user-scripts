@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Research Data JCU - Add Record Helpers
-// @version      1.4.0
+// @version      1.5.0
 // @description  Add various helpers and information to pages within Research Data JCU
 // @author       davidjb
 // @grant        none
@@ -25,15 +25,28 @@
 
   if (window.location.pathname.startsWith('/data/published')) {
     const oid = window.location.pathname.match(/\/published\/(.+?)\//)
-    const content = document.createRange().createContextualFragment(template(`
+
+    // Real pages
+    document.querySelector('.maincontent-body').prepend(
+      document.createRange().createContextualFragment(template(`
       <a class="btn btn-primary m-r-1"
         href="https://research.jcu.edu.au/data/default/rdmp/record/view/${oid[1]}/">View Data Publication</a>
       <ul class="list-inline" style="display: inline-block;">
         <li class="list-inline-item"><strong>Type:</strong> Data Publication (Landing page)</li>
         <li class="list-inline-item bg-success"><strong>Status:</strong> Published</li>
       </ul>
-    `))
-    document.querySelector('.maincontent-body').prepend(content)
+      `))
+    )
+
+    // 404 pages, but they might not be!
+    document.querySelector('.site-research-data.section-A_404 #main').prepend(
+      document.createRange().createContextualFragment(template(`
+      <a class="btn btn-primary pull-xs-left m-r-1"
+        href="https://research.jcu.edu.au/data/default/rdmp/record/view/${oid[1]}/">Try Viewing Data Publication</a>
+        Hey admin! This is a 404 page, so either the record is embargoed, landing page doesn't yet exist, or it's a bug.
+        Click the button to find out which it is!
+      `))
+    )
   }
 
   const form = document.querySelector('dmp-form')

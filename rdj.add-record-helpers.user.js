@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Research Data JCU - Add Record Helpers
-// @version      1.5.2
+// @version      1.5.3
 // @description  Add various helpers and information to pages within Research Data JCU
 // @author       davidjb
 // @grant        none
@@ -14,7 +14,7 @@
 
   function template(content) {
     return `
-    <div class="container m-b-1">
+    <div class="container m-y-1">
       <div class="row">
         <div class="col-xs-12 alert alert-info">
           ${content}

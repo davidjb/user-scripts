@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Research Data JCU - Add Record Helpers
-// @version      1.5.3
+// @version      1.6.0
 // @description  Add various helpers and information to pages within Research Data JCU
 // @author       davidjb
 // @grant        none
@@ -73,7 +73,7 @@
           data.type === 'dataPublication' ? 'Data Publication' :
           data.type
         const data_str = JSON.stringify(data)
-        const related_data_record_oid = data_str.match(/"oid":"(.+?)"/)
+        const related_oid = data_str.match(/"oid":"(.+?)"/)
         const is_published = !!data_str.match(/"value":"https:\/\/research.jcu.edu.au\/data\/published\/(.+?)"/)
         const status_match = data.name.match(/.+-(.+?)$/)
         const status = status_match ? (status_match[1].charAt(0).toUpperCase() + status_match[1].substr(1).toLowerCase()) : null
@@ -100,12 +100,15 @@
           ${window.location.pathname.startsWith('/data/default/rdmp/record/edit/') ?
               `<a class="btn btn-primary m-r-1"
                 href="https://research.jcu.edu.au/data/default/rdmp/record/view/${oid}/">◀ Back to View</a>` : ''}
+          ${(data.type === 'dataRecord' && related_oid) ?
+              `<a class="btn btn-secondary m-r-1"
+                href="https://research.jcu.edu.au/data/default/rdmp/record/view/${related_oid[1]}/">View Related RDMP</a>` : ''}
           ${(data.type === 'dataPublication' && is_published) ?
               `<a class="btn btn-success m-r-1"
                 href="https://research.jcu.edu.au/data/published/${oid}/">See Published Page</a>` : ''}
-          ${(data.type === 'dataPublication' && related_data_record_oid) ?
+          ${(data.type === 'dataPublication' && related_oid) ?
               `<a class="btn btn-secondary m-r-1"
-                href="https://research.jcu.edu.au/data/default/rdmp/record/view/${related_data_record_oid[1]}/">View Related Data Record</a>` : ''}
+                href="https://research.jcu.edu.au/data/default/rdmp/record/view/${related_oid[1]}/">View Related Data Record</a>` : ''}
           <ul class="list-inline" style="display: inline-block;">
             <li class="list-inline-item"><strong>Type:</strong> ${type}</li>
             ${data.type === 'dataPublication' ? `<li class="list-inline-item ${status_class}"><strong>Status:</strong> ${status}</li>`: ''}

@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Research Data JCU - Add Record Helpers
-// @version      1.6.0
+// @version      1.7.0
 // @description  Add various helpers and information to pages within Research Data JCU
 // @author       davidjb
 // @grant        none
@@ -56,6 +56,23 @@
     }
   }
 
+  if (window.location.pathname.startsWith('/data/default/rdmp/legacy/record/')) {
+    const oid = window.location.pathname.match(/\/record\/([a-z0-9]+)/)
+
+    // 404 pages, but they might not be!
+    const section = document.querySelector('.site-research-data.section-A_404 #main')
+    if (section) {
+      section.prepend(
+        document.createRange().createContextualFragment(template(`
+        <a class="btn btn-primary pull-xs-left m-r-1"
+          href="https://eresearch.jcu.edu.au/researchdata/default/search?query=${oid[1]}">Try searching in ReDBox v1.9</a>
+          Hey admin! This is a legacy 404 page, so this record doesn't exist in Research Data JCU.
+          You can try searching the old v1.9 system to find this object ID by clicking the button.
+        `))
+      )
+    }
+  }
+
   const form = document.querySelector('dmp-form')
   const oid = form && form.getAttribute('oid')
   if (oid) {
@@ -100,15 +117,12 @@
           ${window.location.pathname.startsWith('/data/default/rdmp/record/edit/') ?
               `<a class="btn btn-primary m-r-1"
                 href="https://research.jcu.edu.au/data/default/rdmp/record/view/${oid}/">◀ Back to View</a>` : ''}
-          ${(data.type === 'dataRecord' && related_oid) ?
-              `<a class="btn btn-secondary m-r-1"
-                href="https://research.jcu.edu.au/data/default/rdmp/record/view/${related_oid[1]}/">View Related RDMP</a>` : ''}
           ${(data.type === 'dataPublication' && is_published) ?
               `<a class="btn btn-success m-r-1"
                 href="https://research.jcu.edu.au/data/published/${oid}/">See Published Page</a>` : ''}
-          ${(data.type === 'dataPublication' && related_oid) ?
+          ${related_oid ?
               `<a class="btn btn-secondary m-r-1"
-                href="https://research.jcu.edu.au/data/default/rdmp/record/view/${related_oid[1]}/">View Related Data Record</a>` : ''}
+                href="https://research.jcu.edu.au/data/default/rdmp/record/view/${related_oid[1]}/">View Related ${data.type === 'dataRecord' ? 'RDMP' : 'Data Record'}</a>` : ''}
           <ul class="list-inline" style="display: inline-block;">
             <li class="list-inline-item"><strong>Type:</strong> ${type}</li>
             ${data.type === 'dataPublication' ? `<li class="list-inline-item ${status_class}"><strong>Status:</strong> ${status}</li>`: ''}

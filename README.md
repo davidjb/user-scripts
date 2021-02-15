@@ -1,6 +1,6 @@
 # user-scripts
 
-Various user scripts for use with Greasemonkey
+Various user scripts for use with Tampermonkey/Greasemonkey
 
 ## Licence
 

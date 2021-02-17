@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Research Data JCU - Add Record Helpers
-// @version      1.7.0
+// @version      1.8.0
 // @description  Add various helpers and information to pages within Research Data JCU
 // @author       davidjb
 // @grant        none
@@ -12,11 +12,12 @@
 (function() {
   'use strict'
 
-  function template(content) {
+  function template(content, alertType) {
+    const type = alertType || 'info'
     return `
     <div class="container m-y-1">
       <div class="row">
-        <div class="col-xs-12 alert alert-info">
+        <div class="col-xs-12 alert alert-${type}">
           ${content}
         </div>
       </div>
@@ -71,6 +72,23 @@
         `))
       )
     }
+  }
+
+  if (window.location.pathname.startsWith('/data/default/rdmp/dashboard/')) {
+    const type = window.location.pathname.match(/\/dashboard\/([A-z]+)/)
+    fetch(`https://research.jcu.edu.au/data/default/rdmp/listRecords?recordType=${type}`, {
+      headers: {'X-Source': 'jsclient'}
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === true) {
+          return
+        }
+        const content = document.createRange().createContextualFragment(template(`
+        We encountered a problem loading data on this page: ${JSON.stringify(data)}
+        `, 'danger'))
+        document.querySelector('.maincontent-body').prepend(content)
+      })
   }
 
   const form = document.querySelector('dmp-form')

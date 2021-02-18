@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Research Data JCU - Add Record Helpers
-// @version      1.8.0
+// @version      1.9.0
 // @description  Add various helpers and information to pages within Research Data JCU
 // @author       davidjb
 // @grant        none
@@ -12,8 +12,16 @@
 (function() {
   'use strict'
 
+  function typeDisplay(type) {
+    return type === 'rdmp' ? 'RDMP' :
+      type === 'dataRecord' ? 'Data Record' :
+      type === 'dataPublication' ? 'Data Publication' :
+      type
+  }
+
   function template(content, alertType) {
     const type = alertType || 'info'
+
     return `
     <div class="container m-y-1">
       <div class="row">
@@ -76,18 +84,33 @@
 
   if (window.location.pathname.startsWith('/data/default/rdmp/dashboard/')) {
     const type = window.location.pathname.match(/\/dashboard\/([A-z]+)/)
-    fetch(`https://research.jcu.edu.au/data/default/rdmp/listRecords?recordType=${type}`, {
+
+    fetch(`https://research.jcu.edu.au/data/default/rdmp/listRecords?recordType=${type[1]}&start=0&rows=1`, {
       headers: {'X-Source': 'jsclient'}
     })
       .then(response => response.json())
       .then(data => {
-        if (data.status === true) {
-          return
+        const mainContent = document.querySelector('.maincontent-body')
+
+        // Interesting stats
+        if (data.totalItems) {
+          mainContent.prepend(
+            document.createRange().createContextualFragment(template(`
+            <strong>Total ${typeDisplay(type[1])}s:</strong> ${data.totalItems}
+            `))
+          )
         }
-        const content = document.createRange().createContextualFragment(template(`
-        We encountered a problem loading data on this page: ${JSON.stringify(data)}
-        `, 'danger'))
-        document.querySelector('.maincontent-body').prepend(content)
+
+        // Error handling
+        // Error: {"status":false,"message":"Error: getaddrinfo ENOTFOUND redbox"}
+        // Okay: {"noItems": 1}
+        if (data.status === false || typeof data.noItems === 'undefined') {
+          mainContent.prepend(
+            document.createRange().createContextualFragment(template(`
+            We encountered a problem loading data on this page: ${JSON.stringify(data)}
+            `, 'danger'))
+          )
+        }
       })
   }
 
@@ -103,10 +126,6 @@
           return
         }
 
-        const type = data.type === 'rdmp' ? 'RDMP' :
-          data.type === 'dataRecord' ? 'Data Record' :
-          data.type === 'dataPublication' ? 'Data Publication' :
-          data.type
         const data_str = JSON.stringify(data)
         const related_oid = data_str.match(/"oid":"(.+?)"/)
         const is_published = !!data_str.match(/"value":"https:\/\/research.jcu.edu.au\/data\/published\/(.+?)"/)
@@ -142,7 +161,7 @@
               `<a class="btn btn-secondary m-r-1"
                 href="https://research.jcu.edu.au/data/default/rdmp/record/view/${related_oid[1]}/">View Related ${data.type === 'dataRecord' ? 'RDMP' : 'Data Record'}</a>` : ''}
           <ul class="list-inline" style="display: inline-block;">
-            <li class="list-inline-item"><strong>Type:</strong> ${type}</li>
+            <li class="list-inline-item"><strong>Type:</strong> ${typeDisplay(data.type)}</li>
             ${data.type === 'dataPublication' ? `<li class="list-inline-item ${status_class}"><strong>Status:</strong> ${status}</li>`: ''}
           </ul>
         `))

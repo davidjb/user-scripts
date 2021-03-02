@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         JCU - Readable Leave Balances
-// @version      1.0.0
+// @version      1.1.0
 // @description  Make HR system leave balances human-readable
 // @author       davidjb
 // @grant        none
@@ -11,18 +11,23 @@
   'use strict'
 
   function main(frame) {
-    const document = frame.contentDocument
-    document
-      .querySelectorAll('[summary="Leave Balances"] tr')
+    // Document becomes the frame's DOM
+    const rows = document.querySelectorAll('[summary="Leave Balances"] tr')
+    if (rows.length) {
+      frame.onLoad = main
+    }
+    rows
       .forEach(row => {
         if (row.children.length === 7) {
+          const type = row.children[0].textContent
           const value = Number.parseFloat(row.children[4].textContent)
           if (!isNaN(value)) {
             const unit = row.children[6].textContent
             const outputCell = document.createElement('td')
-            outputCell.style.paddingLeft = '1rem'
             outputCell.style.fontFamily = 'Arial'
             outputCell.style.fontWeight = 'bold'
+            outputCell.style.whiteSpace = 'nowrap'
+            outputCell.style.verticalAlign = 'middle'
 
             if (unit.match(/hours/i)) {
               outputCell.innerHTML = `${(value / 36.25).toFixed(1)} weeks (${(value / 7.25).toFixed(1)} days)`
@@ -30,6 +35,20 @@
               outputCell.innerHTML = `${(value / 5).toFixed(1)} weeks`
             }
             row.appendChild(outputCell)
+
+            const maximumCell = document.createElement('td')
+            maximumCell.style.fontFamily = 'Arial'
+            maximumCell.style.whiteSpace = 'nowrap'
+            maximumCell.style.verticalAlign = 'middle'
+            maximumCell.style.backgroundColor = 'pink'
+            if (type === 'Annual Leave') {
+              maximumCell.innerHTML = 'Max: 45 days'
+            } else if (type === 'Long Service Leave') {
+              maximumCell.innerHTML = 'Max: 15 weeks'
+            }
+            if (maximumCell.innerHTML) {
+              row.appendChild(maximumCell)
+            }
           }
         }
       })

@@ -7,8 +7,6 @@
 // @match        https://research.jcu.edu.au/data/*
 // ==/UserScript==
 
-// TODO: make page <title> useful
-
 (function() {
   'use strict'
 

@@ -43,7 +43,7 @@
             </dl>
           </div>
           <div class="modal-footer">
-            <a class="btn btn-primary" href="https://libguides.jcu.edu.au/rdm-toolkit/help-training" target="_blank">Report this issue</a>
+            <a class="btn btn-primary" href="https://libguides.jcu.edu.au/rdm-toolkit/help-training" target="_blank">Contact our team</a>
           </div>
         </div>
       </div>

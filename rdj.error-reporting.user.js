@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Research Data JCU - Error Reporting
-// @version      1.0.0
+// @version      1.0.1
 // @description  Add visible error reporting Research Data JCU
 // @author       davidjb
 // @grant        none

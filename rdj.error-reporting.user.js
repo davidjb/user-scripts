@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Research Data JCU - Error Reporting
-// @version      1.1.0
+// @version      1.2.0
 // @description  Add visible error reporting Research Data JCU
 // @author       davidjb
 // @grant        none
@@ -28,11 +28,10 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-            <h4 class="modal-title" id="errorModalLabel">System Currently Unavailable</h4>
+            <h4 class="modal-title" id="errorModalLabel">Research Data JCU is currently unavailable</h4>
           </div>
           <div class="modal-body">
-            <p class="lead m-b-1">Research Data JCU is currently unavailable due to a system-related issue.</p>
-            <p>We're currently experiencing a technical issue; it’s not your computer or your internet connection. Please wait a few moments and try <a href="javascript:window.location.reload();">reloading the page</a>.</p>
+            <p>We're currently experiencing a systems-related technical issue; it’s not your computer or your internet connection. Please wait a few moments and try <a href="javascript:window.location.reload();">reloading the page</a>.</p>
             <p>If you continue to receive this message, you can review <a href="https://www.jcu.edu.au/information-and-communications-technology/stay-informed/bulletins" target="_blank">current IT systems bulletins <i class="fa fa-external-link" aria-label="Opens in new window"></i></a> to check if this system is undergoing maintenance.</p>
             <p>Otherwise, please contact the <a href="https://libguides.jcu.edu.au/rdm-toolkit/help-training" target="_blank">Research Data JCU team <i class="fa fa-external-link" aria-label="Opens in new window"></i></a>. Let us know what you were trying to do, as well as the technical details below, and we can help you further.</p>
             <p>Sorry for the inconvenience.</p>

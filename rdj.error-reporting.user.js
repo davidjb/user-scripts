@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Research Data JCU - Error Reporting
-// @version      1.3.0
+// @version      1.4.0
 // @description  Add visible error reporting Research Data JCU
 // @author       davidjb
 // @grant        none
@@ -16,8 +16,8 @@
   // eslint-disable-next-line
   self.fetch||(self.fetch=function(e,n){return n=n||{},new Promise(function(t,s){var r=new XMLHttpRequest,o=[],u=[],i={},a=function(){return{ok:2==(r.status/100|0),statusText:r.statusText,status:r.status,url:r.responseURL,text:function(){return Promise.resolve(r.responseText)},json:function(){return Promise.resolve(r.responseText).then(JSON.parse)},blob:function(){return Promise.resolve(new Blob([r.response]))},clone:a,headers:{keys:function(){return o},entries:function(){return u},get:function(e){return i[e.toLowerCase()]},has:function(e){return e.toLowerCase()in i}}}};for(var c in r.open(n.method||"get",e,!0),r.onload=function(){r.getAllResponseHeaders().replace(/^(.*?):[^\S\n]*([\s\S]*?)$/gm,function(e,n,t){o.push(n=n.toLowerCase()),u.push([n,t]),i[n]=i[n]?i[n]+","+t:t}),t(a())},r.onerror=s,r.withCredentials="include"==n.credentials,n.headers)r.setRequestHeader(c,n.headers[c]);r.send(n.body||null)})});
 
-  //const CANARY_URL = 'https://research.jcu.edu.au/data/default/rdmp/listRecords?recordType=dataPublication&start=0&rows=1'
-  const CANARY_URL = 'https://research.jcu.edu.au/data/offline?'
+  //const CANARY_URL = 'https://research.jcu.edu.au/data/default/rdmp/listRecords?diviner&recordType=dataPublication&start=0&rows=1'
+  const CANARY_URL = 'https://research.jcu.edu.au/data/offline?diviner'
   let intervalId
 
   function displayErrorModal(response) {

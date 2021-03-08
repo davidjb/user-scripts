@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Research Data JCU - Add Record Helpers
-// @version      1.9.0
+// @version      1.10.0
 // @description  Add various helpers and information to pages within Research Data JCU
 // @author       davidjb
 // @grant        none
@@ -149,15 +149,18 @@
         }
 
         const content = document.createRange().createContextualFragment(template(`
-          ${window.location.pathname.startsWith('/data/default/rdmp/record/edit/') ?
-              `<a class="btn btn-primary m-r-1"
-                href="https://research.jcu.edu.au/data/default/rdmp/record/view/${oid}/">◀ Back to View</a>` : ''}
-          ${(data.type === 'dataPublication' && is_published) ?
-              `<a class="btn btn-success m-r-1"
-                href="https://research.jcu.edu.au/data/published/${oid}/">See Published Page</a>` : ''}
-          ${related_oid ?
-              `<a class="btn btn-secondary m-r-1"
-                href="https://research.jcu.edu.au/data/default/rdmp/record/view/${related_oid[1]}/">View Related ${data.type === 'dataRecord' ? 'RDMP' : 'Data Record'}</a>` : ''}
+          <span class="m-r-1">
+            ${window.location.pathname.startsWith('/data/default/rdmp/record/edit/') ?
+                `<a class="btn btn-primary"
+                  href="https://research.jcu.edu.au/data/default/rdmp/record/view/${oid}/">◀ Back to View</a>` : ''}
+            ${(data.type === 'dataPublication' && is_published) ?
+                `<a class="btn btn-success"
+                  href="https://research.jcu.edu.au/data/published/${oid}/">See Published Page</a>` : ''}
+            ${related_oid ?
+                `<a class="btn btn-secondary"
+                  href="https://research.jcu.edu.au/data/default/rdmp/record/view/${related_oid[1]}/">View Related ${data.type === 'dataRecord' ? 'RDMP' : 'Data Record'}</a>` : ''}
+            <a class="btn btn-secondary" href="https://research.jcu.edu.au/data/default/rdmp/api/records/metadata/${oid}" target="_blank">Raw JSON</a>
+          </span>
           <ul class="list-inline" style="display: inline-block;">
             <li class="list-inline-item"><strong>Type:</strong> ${typeDisplay(data.type)}</li>
             ${data.type === 'dataPublication' ? `<li class="list-inline-item ${status_class}"><strong>Status:</strong> ${status}</li>`: ''}

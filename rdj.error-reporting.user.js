@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Research Data JCU - Error Reporting
-// @version      1.5.0
+// @version      1.6.0
 // @description  Add visible error reporting Research Data JCU
 // @author       davidjb
 // @grant        none
@@ -57,20 +57,8 @@ Browser:
             <div class="modal-body">
               <p>We're currently experiencing a systems-related technical issue; it’s not your computer or your internet connection.</p>
               <p class="p-y-1" style="border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; background: #f3f3f3; margin-left: -15px; margin-right: -15px; padding-left: 15px; padding-right: 15px;">If you have entered data, please manually take a copy of what you've entered to your local device (such as into a text editor like Microsoft Word). Once you've done so, you can try reloading the page.</p>
-              <p>If you continue to receive this message, review <a class="text-nowrap" href="https://www.jcu.edu.au/information-and-communications-technology/stay-informed/bulletins" target="_blank">current IT systems bulletins <i class="fa fa-external-link" aria-label="Opens in new window"></i></a> to check if this system is undergoing maintenance.</p>
-              <p>Otherwise, please contact the <a class="text-nowrap" href="${emailReportLink}" target="_blank">Research Data JCU team <i class="fa fa-external-link" aria-label="Opens in new window"></i></a>. Let us know what you were trying to do, as well as the technical details below, and we can help you further.</p>
+              <p>If you continue to receive this message, please contact the Research Data JCU team below. Let us know what you were trying to do and we can help you further.</p>
               <p>Sorry for the inconvenience.</p>
-              <h5 class="p-t-1" style="border-top: 1px solid #ccc;">Technical Details</h5>
-              <dl>
-                <dt>Date and Time</dt>
-                <dd><code>${new Date()}</code></dd>
-                <dt>Error</dt>
-                <dd><code>${response.status} (${response.statusText})</code></dd>
-                <dt>URLs</dt>
-                <dd><code>${window.location.protocol}//${window.location.host}${window.location.pathname}${window.location.search}</code><br><code>${CANARY_URL}</code></dd>
-                <dt>Browser</dt>
-                <dd><code>${navigator.userAgent}</code></dd>
-              </dl>
             </div>
             <div class="modal-footer">
               <a class="btn btn-primary" href="${emailReportLink}" target="_blank">Contact our team <i class="fa fa-external-link" aria-label="Opens in new window"></i></a>

@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Research Data JCU - Error Reporting
-// @version      1.4.0
+// @version      1.5.0
 // @description  Add visible error reporting Research Data JCU
 // @author       davidjb
 // @grant        none
@@ -26,6 +26,24 @@
     }
 
     if (!document.querySelector('#errorModal')) {
+      const errorReportSubject = '[Research Data JCU] System Issue Report'
+      const errorReport = `[Add any information here to your report: what were you trying to do; can you reproduce the issue? Attach any screenshots to this email]
+
+
+==== Technical Details ====
+
+Date and Time:
+    ${new Date()}
+Error:
+    ${response.status} (${response.statusText})
+URLs:
+    ${window.location.protocol}//${window.location.host}${window.location.pathname}${window.location.search}
+    ${CANARY_URL}
+Browser:
+    ${navigator.userAgent}
+`
+      const emailReportLink = `mailto:researchdata@jcu.edu.au?subject=${errorReportSubject}&body=${encodeURIComponent(errorReport)}`
+
       document.body.appendChild(document.createRange().createContextualFragment(`
       <div class="modal fade" id="rdjSystemErrorModal" tabindex="-1" role="dialog" aria-labelledby="rdjSystemErrorModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -38,9 +56,9 @@
             </div>
             <div class="modal-body">
               <p>We're currently experiencing a systems-related technical issue; it’s not your computer or your internet connection.</p>
-              <p class="p-y-1" style="border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">If you have entered data, please manually take a copy of what you've entered to your local device (such as into a text editor like Microsoft Word). Once you've done so, you can try reloading the page.</p>
+              <p class="p-y-1" style="border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; background: #f3f3f3; margin-left: -15px; margin-right: -15px; padding-left: 15px; padding-right: 15px;">If you have entered data, please manually take a copy of what you've entered to your local device (such as into a text editor like Microsoft Word). Once you've done so, you can try reloading the page.</p>
               <p>If you continue to receive this message, review <a class="text-nowrap" href="https://www.jcu.edu.au/information-and-communications-technology/stay-informed/bulletins" target="_blank">current IT systems bulletins <i class="fa fa-external-link" aria-label="Opens in new window"></i></a> to check if this system is undergoing maintenance.</p>
-              <p>Otherwise, please contact the <a class="text-nowrap" href="https://libguides.jcu.edu.au/rdm-toolkit/help-training" target="_blank">Research Data JCU team <i class="fa fa-external-link" aria-label="Opens in new window"></i></a>. Let us know what you were trying to do, as well as the technical details below, and we can help you further.</p>
+              <p>Otherwise, please contact the <a class="text-nowrap" href="${emailReportLink}" target="_blank">Research Data JCU team <i class="fa fa-external-link" aria-label="Opens in new window"></i></a>. Let us know what you were trying to do, as well as the technical details below, and we can help you further.</p>
               <p>Sorry for the inconvenience.</p>
               <h5 class="p-t-1" style="border-top: 1px solid #ccc;">Technical Details</h5>
               <dl>
@@ -55,7 +73,7 @@
               </dl>
             </div>
             <div class="modal-footer">
-              <a class="btn btn-primary" href="https://libguides.jcu.edu.au/rdm-toolkit/help-training" target="_blank">Contact our team <i class="fa fa-external-link" aria-label="Opens in new window"></i></a>
+              <a class="btn btn-primary" href="${emailReportLink}" target="_blank">Contact our team <i class="fa fa-external-link" aria-label="Opens in new window"></i></a>
             </div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Research Data JCU - Error Reporting
-// @version      1.6.0
+// @version      1.7.0
 // @description  Add visible error reporting Research Data JCU
 // @author       davidjb
 // @grant        none
@@ -52,12 +52,12 @@ Browser:
               <button type="button" class="close" id="rdjSystemErrorModalClose" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
-              <h4 class="modal-title" id="rdjSystemErrorModalLabel">Research Data JCU is currently unavailable</h4>
+              <h4 class="modal-title" id="rdjSystemErrorModalLabel">Research Data JCU encountered a problem</h4>
             </div>
             <div class="modal-body">
-              <p>We're currently experiencing a systems-related technical issue; it’s not your computer or your internet connection.</p>
-              <p class="p-y-1" style="border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; background: #f3f3f3; margin-left: -15px; margin-right: -15px; padding-left: 15px; padding-right: 15px;">If you have entered data, please manually take a copy of what you've entered to your local device (such as into a text editor like Microsoft Word). Once you've done so, you can try reloading the page.</p>
-              <p>If you continue to receive this message, please contact the Research Data JCU team below. Let us know what you were trying to do and we can help you further.</p>
+              <p>We have encountered a systems-related technical issue; it’s not your computer or your internet connection.</p>
+              <p class="p-y-1" style="border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; background: #f3f3f3; margin-left: -15px; margin-right: -15px; padding-left: 15px; padding-right: 15px;">If you were entering data into a form, please manually take a copy of this data to your local device (such as into a program like Microsoft Word). Once you've done so, reloading the page may resolve the issue.</p>
+              <p>If you continue to receive this message, please report the issue to Research Data JCU team below so that we can investigate. Doing so will send us technical details about the issue, your browser and the URL you were on.</p>
               <p>Sorry for the inconvenience.</p>
             </div>
             <div class="modal-footer">
@@ -106,7 +106,7 @@ Browser:
       .catch(error => displayErrorModal(error))
   }
 
-  // Check on initial page load and every 30s
+  // Check on initial page load and every 5m
   checkSystemStatus()
-  intervalId = setInterval(checkSystemStatus, 30000)
+  intervalId = setInterval(checkSystemStatus, 5*60*1000)
 })()

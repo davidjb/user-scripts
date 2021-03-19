@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Research Data JCU - Error Reporting
-// @version      1.7.0
+// @version      1.8.0
 // @description  Add visible error reporting Research Data JCU
 // @author       davidjb
 // @grant        none
@@ -55,13 +55,13 @@ Browser:
               <h4 class="modal-title" id="rdjSystemErrorModalLabel">Research Data JCU encountered a problem</h4>
             </div>
             <div class="modal-body">
-              <p>We have encountered a systems-related technical issue; it’s not your computer or your internet connection.</p>
-              <p class="p-y-1" style="border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; background: #f3f3f3; margin-left: -15px; margin-right: -15px; padding-left: 15px; padding-right: 15px;">If you were entering data into a form, please manually take a copy of this data to your local device (such as into a program like Microsoft Word). Once you've done so, reloading the page may resolve the issue.</p>
-              <p>If you continue to receive this message, please report the issue to Research Data JCU team below so that we can investigate. Doing so will send us technical details about the issue, your browser and the URL you were on.</p>
+              <p class="p-b-1 m-b-1" style="border-bottom: 2px solid #06c;">We encountered a server-related issue — it is not your computer or your internet connection.</p>
+              <p class="m-b-1"><strong>To avoid losing your data, please copy and paste it into a program such as Microsoft Word or take screenshots. Once you've done so, try reloading the page.</strong></p>
+              <p class="m-b-1">If you see this message again, please click below to send technical details of the issue to the Research Data JCU team so that we can investigate.</p>
               <p>Sorry for the inconvenience.</p>
             </div>
             <div class="modal-footer">
-              <a class="btn btn-primary" href="${emailReportLink}" target="_blank">Contact our team <i class="fa fa-external-link" aria-label="Opens in new window"></i></a>
+              <a class="btn btn-primary" href="${emailReportLink}" target="_blank">Report this issue <i class="fa fa-external-link" aria-label="Opens in new window"></i></a>
             </div>
           </div>
         </div>
@@ -108,5 +108,5 @@ Browser:
 
   // Check on initial page load and every 5m
   checkSystemStatus()
-  intervalId = setInterval(checkSystemStatus, 5*60*1000)
+  intervalId = setInterval(checkSystemStatus, 60*1000)
 })()

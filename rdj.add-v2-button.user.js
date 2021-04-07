@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         Research Data JCU - Add v2 Record Button
-// @version      1.3
-// @description  Add easily-accessible button to ReDBox v1 to link to v2 records
+// @name         Research Data JCU - Add v2 Record and Helper Buttons
+// @version      1.4
+// @description  Add easily-accessible buttons to ReDBox v1 and link to v2 records
 // @author       davidjb
 // @grant        none
 // @match        https://research.jcu.edu.au/researchdata/*
@@ -16,8 +16,13 @@
     const content = document.createRange().createContextualFragment(`
     <a href="https://research.jcu.edu.au/data/default/rdmp/legacy/record/${oid[1]}/"
        target="_blank"
-       style="float: right; border: 1px solid #06c; font-size: 1rem; color: #06c; border-radius: 5px; padding: 3px;">
+       style="float: right; border: 1px solid #06c; border-radius: 5px; padding: 3px; background: #fff; font-size: 1rem; color: #06c;">
        Go to record on Research Data JCU
+    </a>
+    <a href="/researchdata/verNum1.9/default/download/${oid[1]}/rif.xml"
+       target="_blank"
+       style="float: right; margin-right: 0.5rem; border: 1px solid #666; border-radius: 5px; padding: 3px; background: #fff; font-size: 1rem; color: #666;">
+       View rif.xml
     </a>
     `)
     document.querySelector('#page-heading').appendChild(content)

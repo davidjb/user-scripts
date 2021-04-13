@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Research Data JCU - Add Record Helpers
-// @version      1.11.0
+// @version      1.12.0
 // @description  Add various helpers and information to pages within Research Data JCU
 // @author       davidjb
 // @grant        none
@@ -41,6 +41,8 @@
         document.createRange().createContextualFragment(template(`
         <a class="btn btn-primary m-r-1"
           href="https://research.jcu.edu.au/data/default/rdmp/record/view/${oid[1]}/">View Data Publication</a>
+        <a class="btn btn-secondary"
+          href="https://research.jcu.edu.au/data/published/${oid[1]}/rif.xml">rif.xml</a>
         <ul class="list-inline" style="display: inline-block;">
           <li class="list-inline-item"><strong>Type:</strong> Data Publication (Landing page)</li>
           <li class="list-inline-item bg-success"><strong>Status:</strong> Published</li>

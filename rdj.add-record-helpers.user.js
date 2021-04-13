@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Research Data JCU - Add Record Helpers
-// @version      1.12.1
+// @version      1.12.2
 // @description  Add various helpers and information to pages within Research Data JCU
 // @author       davidjb
 // @grant        none
@@ -128,6 +128,7 @@
 
         const data_str = JSON.stringify(data)
         const related_oid = data_str.match(/"oid":"(.+?)"/)
+        const legacyOid = data_str.match(/"legacyId".+?"value":"(.+?)"/)
         const is_published = !!data_str.match(/"value":"https:\/\/research.jcu.edu.au\/data\/published\/(.+?)"/)
         const status_match = data.name.match(/.+-(.+?)$/)
         const status = status_match ? (status_match[1].charAt(0).toUpperCase() + status_match[1].substr(1).toLowerCase()) : null
@@ -165,6 +166,9 @@
                 `<a class="btn btn-secondary"
                   href="https://research.jcu.edu.au/data/published/${oid}/rif.xml">rif.xml</a>` : ''}
             <a class="btn btn-secondary" href="https://research.jcu.edu.au/data/default/rdmp/api/records/metadata/${oid}" target="_blank">Raw JSON</a>
+            ${legacyOid ?
+                `<a class="btn btn-secondary"
+                  href="https://eresearch.jcu.edu.au/researchdata/published/detail/${legacyOid[1]}/">See in v1.9</a>` : ''}
           </span>
           <ul class="list-inline" style="display: inline-block;">
             <li class="list-inline-item"><strong>Type:</strong> ${typeDisplay(data.type)}</li>

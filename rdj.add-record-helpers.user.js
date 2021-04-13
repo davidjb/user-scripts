@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Research Data JCU - Add Record Helpers
-// @version      1.10.0
+// @version      1.11.0
 // @description  Add various helpers and information to pages within Research Data JCU
 // @author       davidjb
 // @grant        none
@@ -159,6 +159,9 @@
             ${related_oid ?
                 `<a class="btn btn-secondary"
                   href="https://research.jcu.edu.au/data/default/rdmp/record/view/${related_oid[1]}/">View Related ${data.type === 'dataRecord' ? 'RDMP' : 'Data Record'}</a>` : ''}
+            ${(data.type === 'dataPublication' && is_published) ?
+                `<a class="btn btn-secondary"
+                  href="https://research.jcu.edu.au/data/published/${oid}/rif.xml">rif.xml</a>` : ''}
             <a class="btn btn-secondary" href="https://research.jcu.edu.au/data/default/rdmp/api/records/metadata/${oid}" target="_blank">Raw JSON</a>
           </span>
           <ul class="list-inline" style="display: inline-block;">

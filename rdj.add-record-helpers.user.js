@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Research Data JCU - Add Record Helpers
-// @version      1.12.2
+// @version      1.12.3
 // @description  Add various helpers and information to pages within Research Data JCU
 // @author       davidjb
 // @grant        none

@@ -31,7 +31,7 @@
   }
 
   if (window.location.pathname.startsWith('/data/published')) {
-    const oid = window.location.pathname.match(/\/published\/([a-z0-9]+)/)
+    const oid = window.location.pathname.match(/\/published\/([a-f0-9]+)/)
     let section
 
     // Real pages
@@ -127,8 +127,8 @@
         }
 
         const data_str = JSON.stringify(data)
-        const related_oid = data_str.match(/"oid":"(.+?)"/)
-        const legacyOid = data_str.match(/"legacyId".+?"value":"(.+?)"/)
+        const related_oid = data_str.match(/"oid":"([a-f0-9]+)"/)
+        const legacyOid = data_str.match(/"legacyId".+?"value":"([a-f0-9]+)"/)
         const is_published = !!data_str.match(/"value":"https:\/\/research.jcu.edu.au\/data\/published\/(.+?)"/)
         const status_match = data.name.match(/.+-(.+?)$/)
         const status = status_match ? (status_match[1].charAt(0).toUpperCase() + status_match[1].substr(1).toLowerCase()) : null

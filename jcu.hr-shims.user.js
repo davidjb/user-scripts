@@ -8,7 +8,7 @@
 // ==/UserScript==
 
 (function() {
-  'use strict'
+  'use strict';
 
   // https://github.com/niutech/showModalDialog
   // ShowModalDialog Polyfill is developed by Jerzy Głowacki under Apache 2.0 License

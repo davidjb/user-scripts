@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         JCU - MyHROnline Shims
-// @version      1.0.1
+// @version      1.0.2
 // @description  Make HR system functional in modern browsers
 // @author       davidjb
 // @grant        none
@@ -8,8 +8,6 @@
 // ==/UserScript==
 
 (function() {
-  'use strict';
-
   // https://github.com/niutech/showModalDialog
   // ShowModalDialog Polyfill is developed by Jerzy Głowacki under Apache 2.0 License
   (function() {

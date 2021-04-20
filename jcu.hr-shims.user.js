@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         JCU - MyHROnline Shims
-// @version      1.0.0
+// @version      1.0.1
 // @description  Make HR system functional in modern browsers
 // @author       davidjb
 // @grant        none

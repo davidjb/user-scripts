@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Research Data JCU - Add Record Helpers
-// @version      1.12.3
+// @version      1.13.0
 // @description  Add various helpers and information to pages within Research Data JCU
 // @author       davidjb
 // @grant        none
@@ -117,65 +117,74 @@
   const form = document.querySelector('dmp-form')
   const oid = form && form.getAttribute('oid')
   if (oid) {
-    fetch(`https://research.jcu.edu.au/data/default/rdmp/record/form/auto/${oid}`, {
-      headers: {'X-Source': 'jsclient'}
-    })
-      .then(response => response.json())
-      .then(data => {
-        if (data.status === false) {
-          return
-        }
-
-        const data_str = JSON.stringify(data)
-        const related_oid = data_str.match(/"oid":"([a-f0-9]+)"/)
-        const legacyOid = data_str.match(/"legacyId".+?"value":"([a-f0-9]+)"/)
-        const is_published = !!data_str.match(/"value":"https:\/\/research.jcu.edu.au\/data\/published\/(.+?)"/)
-        const status_match = data.name.match(/.+-(.+?)$/)
-        const status = status_match ? (status_match[1].charAt(0).toUpperCase() + status_match[1].substr(1).toLowerCase()) : null
-        let status_class
-        switch (status) {
-          case 'Published':
-            status_class = 'bg-success'
-            break
-          case 'Draft':
-            status_class = 'bg-danger'
-            break
-          case 'Embargoed':
-            status_class = 'jcu-bg--orange'
-            break
-          case 'Queued':
-            status_class = 'jcu-bg--gray-light'
-            break
-          default:
-            status_class = ''
-            break
-        }
-
-        const content = document.createRange().createContextualFragment(template(`
-          <span class="m-r-1">
-            ${window.location.pathname.startsWith('/data/default/rdmp/record/edit/') ?
-                `<a class="btn btn-primary"
-                  href="https://research.jcu.edu.au/data/default/rdmp/record/view/${oid}/">◀ Back to View</a>` : ''}
-            ${(data.type === 'dataPublication' && is_published) ?
-                `<a class="btn btn-success"
-                  href="https://research.jcu.edu.au/data/published/${oid}/">See Published Page</a>` : ''}
-            ${related_oid ?
-                `<a class="btn btn-secondary"
-                  href="https://research.jcu.edu.au/data/default/rdmp/record/view/${related_oid[1]}/">View Related ${data.type === 'dataRecord' ? 'RDMP' : 'Data Record'}</a>` : ''}
-            ${(data.type === 'dataPublication' && is_published) ?
-                `<a class="btn btn-secondary"
-                  href="https://research.jcu.edu.au/data/published/${oid}/rif.xml">rif.xml</a>` : ''}
-            <a class="btn btn-secondary" href="https://research.jcu.edu.au/data/default/rdmp/api/records/metadata/${oid}" target="_blank">Raw JSON</a>
-            ${legacyOid ?
-                `<a class="btn btn-secondary"
-                  href="https://eresearch.jcu.edu.au/researchdata/published/detail/${legacyOid[1]}/">See in v1.9</a>` : ''}
-          </span>
-          <ul class="list-inline" style="display: inline-block;">
-            <li class="list-inline-item"><strong>Type:</strong> ${typeDisplay(data.type)}</li>
-            ${data.type === 'dataPublication' ? `<li class="list-inline-item ${status_class}"><strong>Status:</strong> ${status}</li>`: ''}
-          </ul>
-        `))
-        document.querySelector('.maincontent-body').prepend(content)
+    Promise.all([
+      fetch(`https://research.jcu.edu.au/data/default/rdmp/record/form/auto/${oid}`, {
+        headers: {'X-Source': 'jsclient'}
       })
+        .then(response => response.json()),
+      fetch(`https://research.jcu.edu.au/data/default/rdmp/api/records/metadata/${oid}`)
+        .then(response => response.json())
+    ])
+    .then(([
+      formApiData,
+      data
+    ]) => {
+      if (formApiData.status === false || data.status === false) {
+        return
+      }
+
+      // Type and Status are not in the record API; cannot be intuited reliably
+      const type = formApiData.type
+      const status_match = formApiData.name.match(/.+-(.+?)$/)
+      const status = status_match ? (status_match[1].charAt(0).toUpperCase() + status_match[1].substr(1).toLowerCase()) : null
+      const is_published = status === 'published'
+      let status_class
+      switch (status) {
+        case 'Published':
+          status_class = 'bg-success'
+          break
+        case 'Draft':
+          status_class = 'bg-danger'
+          break
+        case 'Embargoed':
+          status_class = 'jcu-bg--orange'
+          break
+        case 'Queued':
+          status_class = 'jcu-bg--gray-light'
+          break
+        default:
+          status_class = ''
+          break
+      }
+
+      const content = document.createRange().createContextualFragment(template(`
+        <span class="m-r-1">
+          ${window.location.pathname.startsWith('/data/default/rdmp/record/edit/') ?
+              `<a class="btn btn-primary"
+                href="https://research.jcu.edu.au/data/default/rdmp/record/view/${oid}/">◀ Back to View</a>` : ''}
+          ${(type === 'dataPublication' && is_published) ?
+              `<a class="btn btn-success"
+                href="https://research.jcu.edu.au/data/published/${oid}/">See Published Page</a>` : ''}
+          ${data.rdmp && data.rdmp.oid ?
+              `<a class="btn btn-secondary"
+                href="https://research.jcu.edu.au/data/default/rdmp/record/view/${data.rdmp.oid}/" title="RDMP: ${data.rdmp.title}">View Related RDMP</a>` : ''}
+          ${data.dataRecord && data.dataRecord.oid ?
+              `<a class="btn btn-secondary"
+                href="https://research.jcu.edu.au/data/default/rdmp/record/view/${data.dataRecord.oid}/" title="Data Record: ${data.dataRecord.title}">View Related Data Record</a>` : ''}
+          ${(type === 'dataPublication' && is_published) ?
+              `<a class="btn btn-secondary"
+                href="https://research.jcu.edu.au/data/published/${oid}/rif.xml">rif.xml</a>` : ''}
+          <a class="btn btn-secondary" href="https://research.jcu.edu.au/data/default/rdmp/api/records/metadata/${oid}" target="_blank">Raw JSON</a>
+          ${data.legacyId ?
+              `<a class="btn btn-secondary"
+                href="https://eresearch.jcu.edu.au/researchdata/published/detail/${data.legacyId}/">See in v1.9</a>` : ''}
+        </span>
+        <ul class="list-inline" style="display: inline-block;">
+          <li class="list-inline-item"><strong>Type:</strong> ${typeDisplay(type)}</li>
+          ${type === 'dataPublication' ? `<li class="list-inline-item ${status_class}"><strong>Status:</strong> ${status}</li>`: ''}
+        </ul>
+      `))
+      document.querySelector('.maincontent-body').prepend(content)
+    })
   }
 })()

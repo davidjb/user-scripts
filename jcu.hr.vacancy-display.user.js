@@ -1,6 +1,6 @@
 // ==UserScript==
-// @name         JCU - Vacancy Display Helpers
-// @version      1.2.0
+// @name         JCU - HR - Vacancy Display Helpers
+// @version      2.0.0
 // @description  Add helpers to the vacancy display within MyHROnline
 // @author       davidjb
 // @grant        none

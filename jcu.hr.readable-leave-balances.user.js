@@ -1,6 +1,6 @@
 // ==UserScript==
-// @name         JCU - Readable Leave Balances
-// @version      1.2.0
+// @name         JCU - HR - Readable Leave Balances
+// @version      2.0.0
 // @description  Make HR system leave balances human-readable
 // @author       davidjb
 // @grant        none

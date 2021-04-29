@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         JCU - Vacancy Display Helpers
-// @version      1.1.0
+// @version      1.2.0
 // @description  Add helpers to the vacancy display within MyHROnline
 // @author       davidjb
 // @grant        none
@@ -21,6 +21,13 @@
 
   const applicantDocuments = document.querySelector('[summary="Attached Documents"]')
   if (applicantDocuments) {
+    document.querySelectorAll('[summary="Attached Documents"] a').forEach(link => {
+      link.target = '_blank'
+      link.rel = 'noreferrer noopener'
+      // Set the download filename to what the user provided
+      link.download = link.innerHTML.split('/').slice(-1)
+    })
+
     const downloadAll = document.createElement('a')
     downloadAll.innerHTML = 'Download all documents'
     downloadAll.href = '#'
@@ -29,13 +36,7 @@
     downloadAll.style.color = 'blue'
     downloadAll.style.marginTop = '1rem'
     downloadAll.style.marginBottom = '1rem'
-    downloadAll.onclick = () => {
-      document.querySelectorAll('[summary="Attached Documents"] a').forEach(link => {
-        link.target = '_blank'
-        link.rel = 'noreferrer noopener'
-        link.click()
-      })
-    }
+    downloadAll.onclick = () => document.querySelectorAll('[summary="Attached Documents"] a').forEach(link => link.click())
     applicantDocuments.after(downloadAll)
   }
 })()

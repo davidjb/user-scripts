@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Research Data JCU - Add Record Helpers
-// @version      1.13.0
+// @version      1.13.1
 // @description  Add various helpers and information to pages within Research Data JCU
 // @author       davidjb
 // @grant        none
@@ -134,10 +134,10 @@
       }
 
       // Type and Status are not in the record API; cannot be intuited reliably
-      const type = formApiData.type
+      const {type} = formApiData
       const status_match = formApiData.name.match(/.+-(.+?)$/)
       const status = status_match ? (status_match[1].charAt(0).toUpperCase() + status_match[1].substr(1).toLowerCase()) : null
-      const is_published = status === 'published'
+      const is_published = status === 'Published'
       let status_class
       switch (status) {
         case 'Published':

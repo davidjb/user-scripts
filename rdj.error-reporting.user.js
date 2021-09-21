@@ -1,10 +1,12 @@
 // ==UserScript==
 // @name         Research Data JCU - Error Reporting
-// @version      1.8.0
+// @version      1.9.0
 // @description  Add visible error reporting Research Data JCU
 // @author       davidjb
 // @grant        none
 // @match        https://research.jcu.edu.au/data/*
+// @match        https://prod-jcu.redboxresearchdata.com.au/*
+// @match        https://test-jcu.redboxresearchdata.com.au/*
 // ==/UserScript==
 //
 /* global $ */

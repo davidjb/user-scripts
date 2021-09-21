@@ -1,10 +1,12 @@
 // ==UserScript==
 // @name         Research Data JCU - Add Record Helpers
-// @version      1.13.1
+// @version      1.14.0
 // @description  Add various helpers and information to pages within Research Data JCU
 // @author       davidjb
 // @grant        none
 // @match        https://research.jcu.edu.au/data/*
+// @match        https://prod-jcu.redboxresearchdata.com.au/*
+// @match        https://test-jcu.redboxresearchdata.com.au/*
 // ==/UserScript==
 
 (function() {

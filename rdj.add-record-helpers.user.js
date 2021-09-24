@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Research Data JCU - Add Record Helpers
-// @version      1.14.1
+// @version      1.15.0
 // @description  Add various helpers and information to pages within Research Data JCU
 // @author       davidjb
 // @grant        none
@@ -13,6 +13,7 @@
   'use strict'
 
   const baseUrl = `${window.location.protocol}//${window.location.host}`
+  const isProduction = window.location.hostname === 'research.jcu.edu.au'
 
   function typeDisplay(type) {
     return type === 'rdmp' ? 'RDMP' :
@@ -44,6 +45,9 @@
         document.createRange().createContextualFragment(template(`
         <a class="btn btn-primary"
           href="${baseUrl}/data/default/rdmp/record/view/${oid[1]}/">View Data Publication</a>
+        ${!isProduction ?
+          `<a class="btn btn-success" target="_blank" rel="noreferrer noopener"
+            href="https://research.jcu.edu.au/data/published/${oid[1]}/">See live</a>` : ''}
         <a class="btn btn-secondary m-r-1"
           href="${baseUrl}/data/published/${oid[1]}/rif.xml">rif.xml</a>
         <ul class="list-inline" style="display: inline-block;">
@@ -166,7 +170,7 @@
               `<a class="btn btn-primary"
                 href="${baseUrl}/data/default/rdmp/record/view/${oid}/">◀ Back to View</a>` : ''}
           ${(type === 'dataPublication' && is_published) ?
-              `<a class="btn btn-success"
+              `<a class="btn btn-primary"
                 href="${baseUrl}/data/published/${oid}/">See Published Page</a>` : ''}
           ${data.rdmp && data.rdmp.oid ?
               `<a class="btn btn-secondary"
@@ -177,10 +181,13 @@
           ${(type === 'dataPublication' && is_published) ?
               `<a class="btn btn-secondary"
                 href="${baseUrl}/data/published/${oid}/rif.xml">rif.xml</a>` : ''}
-          <a class="btn btn-secondary" href="${baseUrl}/data/default/rdmp/api/records/metadata/${oid}" target="_blank">Raw JSON</a>
+          ${!isProduction ?
+              `<a class="btn btn-success" target="_blank" rel="noreferrer noopener"
+                href="https://research.jcu.edu.au/data/default/rdmp/record/view/${oid}/">See live</a>` : ''}
           ${data.legacyId ?
-              `<a class="btn btn-secondary"
+              `<a class="btn btn-danger" target="_blank" rel="noreferrer noopener"
                 href="https://eresearch.jcu.edu.au/researchdata/published/detail/${data.legacyId}/">See in v1.9</a>` : ''}
+          <a class="btn btn-secondary" href="${baseUrl}/data/default/rdmp/api/records/metadata/${oid}" target="_blank">Raw JSON</a>
         </span>
         <ul class="list-inline" style="display: inline-block;">
           <li class="list-inline-item"><strong>Type:</strong> ${typeDisplay(type)}</li>

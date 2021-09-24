@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Research Data JCU - Add Record Helpers
-// @version      1.14.0
+// @version      1.14.1
 // @description  Add various helpers and information to pages within Research Data JCU
 // @author       davidjb
 // @grant        none
@@ -12,6 +12,8 @@
 (function() {
   'use strict'
 
+  const baseUrl = `${window.location.protocol}//${window.location.host}`
+
   function typeDisplay(type) {
     return type === 'rdmp' ? 'RDMP' :
       type === 'dataRecord' ? 'Data Record' :
@@ -21,7 +23,6 @@
 
   function template(content, alertType) {
     const type = alertType || 'info'
-
     return `
     <div class="container m-y-1">
       <div class="row">
@@ -42,9 +43,9 @@
       section.prepend(
         document.createRange().createContextualFragment(template(`
         <a class="btn btn-primary"
-          href="https://research.jcu.edu.au/data/default/rdmp/record/view/${oid[1]}/">View Data Publication</a>
+          href="${baseUrl}/data/default/rdmp/record/view/${oid[1]}/">View Data Publication</a>
         <a class="btn btn-secondary m-r-1"
-          href="https://research.jcu.edu.au/data/published/${oid[1]}/rif.xml">rif.xml</a>
+          href="${baseUrl}/data/published/${oid[1]}/rif.xml">rif.xml</a>
         <ul class="list-inline" style="display: inline-block;">
           <li class="list-inline-item"><strong>Type:</strong> Data Publication (Landing page)</li>
           <li class="list-inline-item bg-success"><strong>Status:</strong> Published</li>
@@ -59,7 +60,7 @@
       section.prepend(
         document.createRange().createContextualFragment(template(`
         <a class="btn btn-primary pull-xs-left m-r-1"
-          href="https://research.jcu.edu.au/data/default/rdmp/record/view/${oid[1]}/">Try Viewing Data Publication</a>
+          href="${baseUrl}/data/default/rdmp/record/view/${oid[1]}/">Try Viewing Data Publication</a>
           Hey admin! This is a 404 page, so either the record is embargoed, landing page doesn't yet exist, or it's a bug.
           Click the button to find out which it is!
         `))
@@ -87,7 +88,7 @@
   if (window.location.pathname.startsWith('/data/default/rdmp/dashboard/')) {
     const type = window.location.pathname.match(/\/dashboard\/([A-z]+)/)
 
-    fetch(`https://research.jcu.edu.au/data/default/rdmp/listRecords?recordType=${type[1]}&start=0&rows=1`, {
+    fetch(`${baseUrl}/data/default/rdmp/listRecords?recordType=${type[1]}&start=0&rows=1`, {
       headers: {'X-Source': 'jsclient'}
     })
       .then(response => response.json())
@@ -120,11 +121,11 @@
   const oid = form && form.getAttribute('oid')
   if (oid) {
     Promise.all([
-      fetch(`https://research.jcu.edu.au/data/default/rdmp/record/form/auto/${oid}`, {
+      fetch(`${baseUrl}/data/default/rdmp/record/form/auto/${oid}`, {
         headers: {'X-Source': 'jsclient'}
       })
         .then(response => response.json()),
-      fetch(`https://research.jcu.edu.au/data/default/rdmp/api/records/metadata/${oid}`)
+      fetch(`${baseUrl}/data/default/rdmp/api/records/metadata/${oid}`)
         .then(response => response.json())
     ])
     .then(([
@@ -163,20 +164,20 @@
         <span class="m-r-1">
           ${window.location.pathname.startsWith('/data/default/rdmp/record/edit/') ?
               `<a class="btn btn-primary"
-                href="https://research.jcu.edu.au/data/default/rdmp/record/view/${oid}/">◀ Back to View</a>` : ''}
+                href="${baseUrl}/data/default/rdmp/record/view/${oid}/">◀ Back to View</a>` : ''}
           ${(type === 'dataPublication' && is_published) ?
               `<a class="btn btn-success"
-                href="https://research.jcu.edu.au/data/published/${oid}/">See Published Page</a>` : ''}
+                href="${baseUrl}/data/published/${oid}/">See Published Page</a>` : ''}
           ${data.rdmp && data.rdmp.oid ?
               `<a class="btn btn-secondary"
-                href="https://research.jcu.edu.au/data/default/rdmp/record/view/${data.rdmp.oid}/" title="RDMP: ${data.rdmp.title}">View Related RDMP</a>` : ''}
+                href="${baseUrl}/data/default/rdmp/record/view/${data.rdmp.oid}/" title="RDMP: ${data.rdmp.title}">View Related RDMP</a>` : ''}
           ${data.dataRecord && data.dataRecord.oid ?
               `<a class="btn btn-secondary"
-                href="https://research.jcu.edu.au/data/default/rdmp/record/view/${data.dataRecord.oid}/" title="Data Record: ${data.dataRecord.title}">View Related Data Record</a>` : ''}
+                href="${baseUrl}/data/default/rdmp/record/view/${data.dataRecord.oid}/" title="Data Record: ${data.dataRecord.title}">View Related Data Record</a>` : ''}
           ${(type === 'dataPublication' && is_published) ?
               `<a class="btn btn-secondary"
-                href="https://research.jcu.edu.au/data/published/${oid}/rif.xml">rif.xml</a>` : ''}
-          <a class="btn btn-secondary" href="https://research.jcu.edu.au/data/default/rdmp/api/records/metadata/${oid}" target="_blank">Raw JSON</a>
+                href="${baseUrl}/data/published/${oid}/rif.xml">rif.xml</a>` : ''}
+          <a class="btn btn-secondary" href="${baseUrl}/data/default/rdmp/api/records/metadata/${oid}" target="_blank">Raw JSON</a>
           ${data.legacyId ?
               `<a class="btn btn-secondary"
                 href="https://eresearch.jcu.edu.au/researchdata/published/detail/${data.legacyId}/">See in v1.9</a>` : ''}

@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         QLD Government - Filter COVID Exposure
-// @version      1.0.0
+// @version      1.1.0
 // @description  Only displays relevant data on the contact tracing website
 // @author       davidjb
 // @grant        none
@@ -10,6 +10,9 @@
 (function() {
     'use strict';
 
+    const CITY = 'Townsville'
+    const LGA = 'QLD142'
+
     // Naïvely assume the first table on the page is Queensland
     let table = document.querySelector('table')
     let rows = Array.from(table.querySelectorAll('tbody tr'))
@@ -18,20 +21,30 @@
     rows
         .filter(row => {
           let suburb = decodeURIComponent(row.dataset.suburb)
-          return !(suburb.match(/Townsville/i) || row.dataset.lgas === 'QLD142')
+          return !(suburb.match(RegExp(CITY, 'i')) || row.dataset.lgas === LGA)
         })
         .forEach(row => { row.remove() })
         //.forEach(row => { row.hidden = true })
 
     // Display date added
-    let heading = document.createElement('th')
-    heading.textContent = 'Added'
-    table.querySelector('thead tr').appendChild(heading)
+    table.querySelector('thead tr').appendChild(
+      document.createRange().createContextualFragment('<th>Added</th>')
+    )
     rows.forEach(row => {
-      let cell = document.createElement('td')
-      cell.textContent = row.dataset.added.replace('T', ' ')
-      row.appendChild(cell)
+      row.appendChild(
+        document.createRange().createContextualFragment(`
+          <td>${row.dataset.added.replace('T', ' ')}</td>
+        `)
+      )
     })
+
+    // Add visible info to page
+    document.body.prepend(document.createRange().createContextualFragment(`
+      <div style="position: fixed; z-index: 1; padding: 1rem; background: #c5dcff;">
+        Showing only data from ${CITY} LGA.<br>
+        Disable script to see all.
+      </div>
+    `))
 
     // Scroll to the table
     table.scrollIntoView()

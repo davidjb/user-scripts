@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         QLD Government - Filter COVID Exposure
-// @version      1.1.0
+// @version      1.1.1
 // @description  Only displays relevant data on the contact tracing website
 // @author       davidjb
 // @grant        none
@@ -27,15 +27,13 @@
         //.forEach(row => { row.hidden = true })
 
     // Display date added
-    table.querySelector('thead tr').appendChild(
-      document.createRange().createContextualFragment('<th>Added</th>')
-    )
+    let heading = document.createElement('th')
+    heading.textContent = 'Added'
+    table.querySelector('thead tr').appendChild(heading)
     rows.forEach(row => {
-      row.appendChild(
-        document.createRange().createContextualFragment(`
-          <td>${row.dataset.added.replace('T', ' ')}</td>
-        `)
-      )
+      let cell = document.createElement('td')
+      cell.textContent = row.dataset.added.replace('T', ' ')
+      row.appendChild(cell)
     })
 
     // Add visible info to page

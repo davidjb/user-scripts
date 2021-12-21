@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         QLD Government - Filter COVID Exposure
-// @version      1.1.1
+// @version      1.2.0
 // @description  Only displays relevant data on the contact tracing website
 // @author       davidjb
 // @grant        none
@@ -17,7 +17,7 @@
     let table = document.querySelector('table')
     let rows = Array.from(table.querySelectorAll('tbody tr'))
 
-    // Filter non-Townsville rows
+    // Filter non-matching rows
     rows
         .filter(row => {
           let suburb = decodeURIComponent(row.dataset.suburb)
@@ -25,16 +25,6 @@
         })
         .forEach(row => { row.remove() })
         //.forEach(row => { row.hidden = true })
-
-    // Display date added
-    let heading = document.createElement('th')
-    heading.textContent = 'Added'
-    table.querySelector('thead tr').appendChild(heading)
-    rows.forEach(row => {
-      let cell = document.createElement('td')
-      cell.textContent = row.dataset.added.replace('T', ' ')
-      row.appendChild(cell)
-    })
 
     // Add visible info to page
     document.body.prepend(document.createRange().createContextualFragment(`

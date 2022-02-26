@@ -1,10 +1,10 @@
 // ==UserScript==
-// @name         Member Advantage - Adjust Checkout
+// @name         Ambassador Card - Adjust Checkout
 // @version      0.1.0
 // @description  Makes checkout process simpler
 // @author       davidjb
 // @grant        none
-// @match        https://ma.ambassadorcard.com.au/*
+// @match        https://*.ambassadorcard.com.au/*
 // ==/UserScript==
 
 (function() {
